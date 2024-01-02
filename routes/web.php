@@ -29,11 +29,12 @@ Route::get('/user', [
    UserController::class, 'user'
 ]);
 
-Route::get('/rooms', [RoomController::class, 'index']);
+Route::get('/room', [RoomController::class, 'index'])->name('room.index');
 
 
 Route::get('/dashboard', function () {
    return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/room/create', [RoomController::class, 'create'])->name('room.create');
 require __DIR__ . '/auth.php';

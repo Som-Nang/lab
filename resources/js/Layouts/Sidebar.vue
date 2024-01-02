@@ -32,7 +32,7 @@ const sidebar = useToggleSidebar();
 
             <nav class="mt-8">
                 <div class="my-1 group">
-                    <div class="relative h-0 group-hover:block">
+                    <div class="relative h-0 group-hover:block my-4">
                         <svg
                             class="absolute bottom-0 right-0 hidden w-4 h-4 text-gray-200 rotate-90 dark:text-slate-800 md:block"
                             xmlns="http://www.w3.org/2000/svg"
@@ -53,15 +53,32 @@ const sidebar = useToggleSidebar();
                         :class="{
                             'bg-gray-200 dark:bg-slate-800 text-primary dark:text-white font-bold': true,
                         }"
+                        class="my-4 flex items-center justify-between rounded-l-full rounded-r-full border-primary hover:bg-base-200 hover:text-primary dark:border-darkPrimary dark:hover:bg-slate-700/75 dark:hover:text-white md:rounded-r-none"
+                    >
+                        <Link
+                            preserve-state
+                            class="flex items-center justify-between w-full px-3 py-2 rounded-l-full rounded-r-full border-primary hover:bg-base-200 hover:text-primary dark:border-darkPrimary dark:hover:bg-slate-700/75 dark:hover:text-white md:rounded-r-none"
+                            href="/room/create"
+                        >
+                            <div class="flex items-center w-full">
+                                <span> Dashboard </span>
+                            </div>
+                        </Link>
+                    </div>
+
+                    <div
+                        :class="{
+                            'bg-gray-200 dark:bg-slate-800 text-primary dark:text-white font-bold': true,
+                        }"
                         class="flex items-center justify-between rounded-l-full rounded-r-full border-primary hover:bg-base-200 hover:text-primary dark:border-darkPrimary dark:hover:bg-slate-700/75 dark:hover:text-white md:rounded-r-none"
                     >
                         <Link
                             preserve-state
                             class="flex items-center justify-between w-full px-3 py-2 rounded-l-full rounded-r-full border-primary hover:bg-base-200 hover:text-primary dark:border-darkPrimary dark:hover:bg-slate-700/75 dark:hover:text-white md:rounded-r-none"
-                            href="#"
+                            href="/room/create"
                         >
                             <div class="flex items-center w-full">
-                                <span> Dashboard </span>
+                                <span> Room </span>
                             </div>
                         </Link>
                     </div>
