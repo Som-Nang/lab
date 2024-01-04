@@ -37,4 +37,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/room/create', [RoomController::class, 'create'])->name('room.create');
+
+Route::post('/room/store/{id?}', [RoomController::class, 'store'])->name('room.store');
+
+
 require __DIR__ . '/auth.php';

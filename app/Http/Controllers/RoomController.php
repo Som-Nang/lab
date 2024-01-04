@@ -20,4 +20,26 @@ class RoomController extends Controller
     {
         return inertia('Room/Create');
     }
+
+
+
+    public function store(Request $request, $id = null)
+    {
+        $request->validate([
+            'roomName' => 'required|unique:rooms,name',
+            'description' => 'nullable',
+            'capacity' => 'required|integer',
+            'status' => 'required|in:active,maintenance',
+        ]);
+
+        $roomId = $request->input('roomName');
+        Room::create([
+            'room_id' => $roomId,
+            'name' => $request->input('roomName'),
+            'description' => $request->input('description'),
+            'status' => $request->input('status'),
+            'capacity' => $request->input('capacity'),
+            'user_id' => 1,
+        ]);
+    }
 }
