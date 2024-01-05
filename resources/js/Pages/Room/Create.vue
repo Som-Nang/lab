@@ -1,37 +1,44 @@
 <script setup lang="ts">
 import Layout from "@/Layouts/Layout.vue";
 import { router } from "@inertiajs/vue3";
-import { ErrorCodes, ref } from "vue";
+import { ref } from "vue";
+
+const props = defineProps({
+    errors: Object,
+});
+
 const roomName = ref();
 const description = ref();
 const capacity = ref();
 const status = ref();
-const props = defineProps()=>{
-    errors.object();
-}
+const message = ref();
+
 const save = () => {
     const data = {
         roomName: roomName.value,
         description: description.value,
         capacity: capacity.value,
         status: status.value,
-    }
+    };
     router.post("/room/store", data, {
-        onSuccess:() => {
-        roomName: roomName.value,
-        description: description.value,
-        capacity: capacity.value,
-        status: status.value,
-        }
+        onSuccess: () => {
+            message.value = "Room created successfully";
+            roomName.value = "";
+            description.value = "";
+            capacity.value = "";
+            status.value = "active";
+        },
     });
 };
 </script>
 
 <template>
     <Layout>
-        {{ errors }}
         <div class="container mx-auto p-4">
             <h2 class="text-2xl md:text-red-500">Create Room</h2>
+            <div class="text-green-600">
+                {{ message }}
+            </div>
             <form @submit.prevent="save" class="mt-4 flex flex-col gap-4">
                 <div class="flex flex-col lg:flex-row gap-2">
                     <div class="flex flex-col w-full">
@@ -56,6 +63,9 @@ const save = () => {
                             cols=""
                             rows="1"
                         ></textarea>
+                        <div v-if="errors.description" class="text-red-500">
+                            {{ errors.description }}
+                        </div>
                     </div>
                 </div>
 
@@ -69,6 +79,9 @@ const save = () => {
                             name=""
                             id=""
                         />
+                        <div v-if="errors.capacity" class="text-red-500">
+                            {{ errors.capacity }}
+                        </div>
                     </div>
 
                     <div class="flex 0 flex-col w-full">
@@ -78,6 +91,9 @@ const save = () => {
                             <option value="active">Active</option>
                             <option value="maintenance">Maintenance</option>
                         </select>
+                        <div v-if="errors.status" class="text-red-500">
+                            {{ errors.status }}
+                        </div>
                     </div>
                 </div>
 
