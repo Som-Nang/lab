@@ -7,26 +7,39 @@ const props = defineProps({
     errors: Object,
 });
 
-const roomName = ref();
-const description = ref();
-const capacity = ref();
-const status = ref();
-const message = ref();
+const form = ref({
+    name: "",
+    description: "",
+    capacity: 1,
+    status: "active",
+});
+// const roomName = ref();
+// const description = ref();
+// const capacity = ref();
+// const status = ref();
 
+const message = ref();
 const save = () => {
-    const data = {
-        roomName: roomName.value,
-        description: description.value,
-        capacity: capacity.value,
-        status: status.value,
-    };
-    router.post("/room/store", data, {
+    // const data = {
+    //     roomName: roomName.value,
+    //     description: description.value,
+    //     capacity: capacity.value,
+    //     status: status.value,
+    // };
+    router.post("/room/store", form.value, {
         onSuccess: () => {
+            // message.value = "Room created successfully";
+            // roomName.value = "";
+            // description.value = "";
+            // capacity.value = "";
+            // status.value = "active";
             message.value = "Room created successfully";
-            roomName.value = "";
-            description.value = "";
-            capacity.value = "";
-            status.value = "active";
+            form.value = {
+                name: "",
+                description: "",
+                capacity: 1,
+                status: "active",
+            };
         },
     });
 };
@@ -45,18 +58,18 @@ const save = () => {
                         <label for="">Room Name</label>
                         <input
                             class="rounded-md"
-                            v-model.trim="roomName"
+                            v-model.trim="form.name"
                             type="text"
                         />
-                        <div v-if="errors.roomName" class="text-red-500">
-                            {{ errors.roomName }}
+                        <div v-if="errors.name" class="text-red-500">
+                            {{ errors.name }}
                         </div>
                     </div>
 
                     <div class="flex flex-col w-full">
                         <label for="">Description</label>
                         <textarea
-                            v-model="description"
+                            v-model="form.description"
                             class="rounded-md"
                             name=""
                             id=""
@@ -73,7 +86,7 @@ const save = () => {
                     <div class="flex flex-col w-full">
                         <label for="">Capacity</label>
                         <input
-                            v-model="capacity"
+                            v-model="form.capacity"
                             class="rounded-md"
                             type="number"
                             name=""
@@ -86,7 +99,7 @@ const save = () => {
 
                     <div class="flex 0 flex-col w-full">
                         <label for="">Status</label>
-                        <select v-model="status" class="rounded-md">
+                        <select v-model="form.status" class="rounded-md">
                             <option value="">Select a status</option>
                             <option value="active">Active</option>
                             <option value="maintenance">Maintenance</option>
