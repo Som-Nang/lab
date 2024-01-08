@@ -1,7 +1,7 @@
-<script setup lang="ts">
-import Layout from "@/Layouts/Layout.vue";
-import { router } from "@inertiajs/vue3";
+<script setup>
 import { ref } from "vue";
+import { router } from "@inertiajs/vue3";
+import Layout from "@/Layouts/Layout.vue";
 
 const props = defineProps({
     errors: Object,
