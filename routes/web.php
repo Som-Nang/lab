@@ -25,20 +25,28 @@ Route::get('/', function () {
    return Inertia::render('index');
 });
 
-Route::get('/user', [
-   UserController::class, 'user'
-]);
+// Route::get('/user', [
+//    UserController::class, 'user'
+// ]);
 
 Route::get('/room', [RoomController::class, 'index'])->name('room.index');
 
 
 Route::get('/dashboard', function () {
    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+});
 
 Route::get('/room/create', [RoomController::class, 'create'])->name('room.create');
 
 Route::post('/room/store/{id?}', [RoomController::class, 'store'])->name('room.store');
+
+
+
+// login page
+Route::get('/user/login', [UserController::class, 'login'])->name('login');
+
+// get login data input from user
+Route::post('/user/login', [UserController::class, 'verifyLgin'])->name('login.verify');
 
 
 require __DIR__ . '/auth.php';
