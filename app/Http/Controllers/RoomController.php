@@ -23,7 +23,7 @@ class RoomController extends Controller
                     'description' => $room->description,
                     'status' => $room->status,
                     'capacity' => $room->capacity,
-                    'user_id' => 1
+                    'user_id' => auth()->user()->id,
 
                 ];
             })
@@ -53,7 +53,18 @@ class RoomController extends Controller
             'description' => $request->input('description'),
             'status' => $request->input('status'),
             'capacity' => $request->input('capacity'),
-            'user_id' => 1,
+            'user_id' => auth()->user()->id,
         ]);
+    }
+    public function edit(string $id)
+    {
+        return Room::query()
+            ->where('room_id', $id)
+            ->firstOrFail();
+        // $room = Room::find($id));
+        // if (!$room) {
+        //     abort(404);
+        // }
+        // return $room;
     }
 }
