@@ -52,8 +52,6 @@ Route::middleware(CheckLogin::class)->group(function () {
    });
 });
 
-
-
 // login page
 Route::get('/user/login', [UserController::class, 'login'])->middleware(RedirectToUserLogin::class)->name('login');
 
