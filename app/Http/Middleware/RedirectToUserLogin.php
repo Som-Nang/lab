@@ -17,7 +17,7 @@ class RedirectToUserLogin
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
-            return redirect()->to('/dashboard');
+            return redirect()->to('/');
         }
         return $next($request);
     }

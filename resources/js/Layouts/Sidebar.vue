@@ -58,7 +58,7 @@ const sidebar = useToggleSidebar();
                         <Link
                             preserve-state
                             class="flex items-center justify-between w-full px-3 py-2 rounded-l-full rounded-r-full border-primary hover:bg-base-200 hover:text-primary dark:border-darkPrimary dark:hover:bg-slate-700/75 dark:hover:text-white md:rounded-r-none"
-                            href="/room/create"
+                            href="/"
                         >
                             <div class="flex items-center w-full">
                                 <span> Dashboard </span>

@@ -25,9 +25,7 @@ use Inertia\Inertia;
 // Route::get('/', function () {
 //    return "Hello brother";
 // });
-Route::get('/', function () {
-   return Inertia::render('index');
-});
+
 
 // Route::get('/user', [
 //    UserController::class, 'user'
@@ -51,9 +49,12 @@ Route::middleware(CheckLogin::class)->group(function () {
       //Delete Room
       Route::delete('/delete/{id}', 'destroy')->name('destroy');
    });
-   //Dashboard
+   // Dashboard
    Route::get('/dashboard', function () {
       return Inertia::render('Dashboard');
+   });
+   Route::get('/', function () {
+      return Inertia::render('index');
    });
 });
 

@@ -31,7 +31,7 @@ class UserController extends Controller
                 Auth::login($user, $request->remember);
                 $request->session()->regenerate();
 
-                return redirect()->to('/dashboard');
+                return redirect()->to('/');
             } else {
 
                 return back()->withErrors([
