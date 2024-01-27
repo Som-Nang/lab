@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { PropType } from "vue";
 import Layout from "@/Layouts/Layout.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, router } from "@inertiajs/vue3";
 import { ref } from "vue";
 import axios from "axios";
 import Modal from "@/Components/Modal.vue";
-
+import Swal from "sweetalert2";
 type RoomType = {
     room_id: string;
     name: string;
@@ -23,6 +23,7 @@ defineProps({
 });
 
 const form = ref({
+    room_id: "",
     name: "",
     description: "",
     capacity: 1,
@@ -30,15 +31,45 @@ const form = ref({
 });
 const message = ref();
 
-const update = () => {
-    console.log(form.value);
+const update = (roomId: String) => {
+    router.put("/room/edit/" + roomId, form.value, {
+        onSuccess: () => {
+            message.value = "Room updated successfully";
+            setTimeout(() => {
+                message.value = "";
+            }, 2000);
+        },
+    });
 };
+
+const destroy = (roomId: String) => {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            router.delete("/room/delete/" + roomId);
+            Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+            });
+        }
+    });
+};
+
 const openModal = ref(false);
-const roomEdit = ref();
+
 const edit = (roomId: String) => {
     axios
         .get("/room/edit/" + roomId)
         .then((res) => {
+            form.value.room_id = res.data.room_id;
             form.value.name = res.data.name;
             form.value.description = res.data.description;
             form.value.capacity = res.data.capacity;
@@ -61,7 +92,10 @@ const edit = (roomId: String) => {
             <div class="text-green-600">
                 {{ message }}
             </div>
-            <form @submit.prevent="update" class="mt-4 flex flex-col gap-4">
+            <form
+                @submit.prevent="update(form.room_id)"
+                class="mt-4 flex flex-col gap-4"
+            >
                 <div class="flex flex-col lg:flex-row gap-2">
                     <div class="flex flex-col w-full">
                         <label for="">Room Name</label>
@@ -191,6 +225,7 @@ const edit = (roomId: String) => {
                                     Edit
                                 </button>
                                 <button
+                                    @click.prevent="destroy(room.room_id)"
                                     class="bg-red-600 p-2 rounded-lg text-gray-100 hover:bg-red-500"
                                 >
                                     Delete

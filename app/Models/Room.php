@@ -11,6 +11,11 @@ class Room extends Model
 
     protected $table = 'rooms';
 
+    protected $primaryKey = 'room_id';
+
+    public $keyType = 'string';
+
+    public $incrementing = false;
 
     protected $fillable = [
         'room_id',

@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "lucide-vue-next": "^0.303.0",
-    "pinia": "^2.1.7"
+    "pinia": "^2.1.7",
+    "sweetalert2": "^11.10.4"
   }
 }

@@ -38,13 +38,18 @@ Route::middleware(CheckLogin::class)->group(function () {
       Route::get('/', 'index')->name('index');
       //Create Room
       Route::get('/create', 'create')->name('create');
+
       //Store Room data
       Route::post('/store/{id?}', 'store')->name('store');
 
       //Edit Room
       Route::get('/edit/{id}', 'edit')->name('edit');
+
+      //Edit date
+      Route::put('/edit/{id}', 'update')->name('update');
+
       //Delete Room
-      // Route::get('/delete/{id}', 'delete')->name('delete');
+      Route::delete('/delete/{id}', 'destroy')->name('destroy');
    });
    //Dashboard
    Route::get('/dashboard', function () {

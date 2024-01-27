@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Http\Controllers;
 
 use App\Models\Room;
@@ -66,5 +64,30 @@ class RoomController extends Controller
         //     abort(404);
         // }
         // return $room;
+    }
+    public function update(Request $request, string $id)
+    {
+        // dd($request->all());
+
+        $room = Room::query()
+            ->where('room_id', $id)
+            ->firstOrFail();
+        // dd($room);
+        $roomId = $request->input('name');
+        $room->update([
+            'room_id' => $roomId,
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'capacity' => $request->input('capacity'),
+            'status' => $request->input('status')
+        ]);
+    }
+    public function destroy(string $id)
+    {
+        $room = Room::find($id);
+        if (!$room) {
+            abort(404);
+        }
+        $room->delete();
     }
 }
