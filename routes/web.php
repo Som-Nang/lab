@@ -50,7 +50,15 @@ Route::middleware(CheckLogin::class)->group(function () {
    Route::get('/dashboard', function () {
       return Inertia::render('Dashboard');
    });
+
+   //Logout
+   Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });
+
+// Route::get('/dashboard', function () {
+//    return Inertia::render('Dashboard');
+// }])
+
 
 // login page
 Route::get('/user/login', [UserController::class, 'login'])->middleware(RedirectToUserLogin::class)->name('login');

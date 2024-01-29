@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { PropType, ref } from "vue";
-import { Link } from "@inertiajs/vue3";
+import { type PropType, ref, computed, onMounted } from "vue";
+import { Link, router, usePage } from "@inertiajs/vue3";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import {
     Moon,
@@ -9,11 +9,24 @@ import {
     ChevronRightSquare,
     ChevronLeftSquare,
 } from "lucide-vue-next";
-import { onMounted } from "vue";
 import { useToggleSidebar } from "@/Stores/useToggleSidebar";
+
+const page = usePage();
+const user = computed(() => page.props.auth.user);
+defineProps({
+    breadcrumbs: {
+        type: Array as PropType<
+            {
+                name: string;
+                url: string;
+            }[]
+        >,
+        required: false,
+        default: () => [],
+    },
+});
+
 const sidebar = useToggleSidebar();
-
-
 
 const dropdownOpen = ref(false);
 
@@ -43,6 +56,10 @@ onMounted(() => {
         }
     }
 });
+
+// const logout = () => {
+//     router.post(route("logout"));
+// };
 </script>
 <template>
     <header
@@ -79,6 +96,9 @@ onMounted(() => {
         <div id="center-header"></div>
 
         <div class="flex items-center">
+            <div class="mr-2 uppercase">
+                {{ user.name }}
+            </div>
             <button
                 class="flex mr-3 text-gray-600 transition-all duration-500 ease-in transform dark:text-gray-400"
                 :class="appTheme === 'dark' ? 'rotate-[360deg]' : 'rotate-0'"
@@ -131,14 +151,14 @@ onMounted(() => {
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary hover:text-white dark:text-gray-300"
                             >Profile
                         </Link>
-                        <Link
+                        <button
                             href="#"
                             method="post"
                             as="button"
                             class="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-primary hover:text-white dark:text-gray-100"
                         >
                             Log out
-                        </Link>
+                        </button>
                     </div>
                 </transition>
             </div>
