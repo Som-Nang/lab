@@ -46,13 +46,15 @@ Route::middleware(CheckLogin::class)->group(function () {
       //Delete Room
       // Route::get('/delete/{id}', 'delete')->name('delete');
    });
+
+
+   //Logout
+   Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
    //Dashboard
    Route::get('/dashboard', function () {
       return Inertia::render('Dashboard');
    });
-
-   //Logout
-   Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });
 
 // Route::get('/dashboard', function () {

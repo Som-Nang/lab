@@ -70,7 +70,7 @@ const edit = (roomId: String) => {
                             v-model.trim="form.name"
                             type="text"
                         />
-                        <div v-if="errors.name" class="text-red-500">
+                        <div v-if="errors?.name" class="text-red-500">
                             {{ errors.name }}
                         </div>
                     </div>
@@ -85,7 +85,7 @@ const edit = (roomId: String) => {
                             cols=""
                             rows="1"
                         ></textarea>
-                        <div v-if="errors.description" class="text-red-500">
+                        <div v-if="errors?.description" class="text-red-500">
                             {{ errors.description }}
                         </div>
                     </div>
@@ -101,7 +101,7 @@ const edit = (roomId: String) => {
                             name=""
                             id=""
                         />
-                        <div v-if="errors.capacity" class="text-red-500">
+                        <div v-if="errors?.capacity" class="text-red-500">
                             {{ errors.capacity }}
                         </div>
                     </div>
@@ -113,7 +113,7 @@ const edit = (roomId: String) => {
                             <option value="active">Active</option>
                             <option value="maintenance">Maintenance</option>
                         </select>
-                        <div v-if="errors.status" class="text-red-500">
+                        <div v-if="errors?.status" class="text-red-500">
                             {{ errors.status }}
                         </div>
                     </div>
