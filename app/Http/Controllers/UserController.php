@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Dotenv\Exception\ValidationException as ExceptionValidationException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationData;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -34,8 +37,11 @@ class UserController extends Controller
                 return redirect()->to('/');
             } else {
 
-                return back()->withErrors([
-                    'email' => 'The provided credentials do not match our records.',
+                // return back()->withErrors([
+                //     'email' => 'The provided credentials do not match our records.',
+                // ]);
+                throw ExceptionValidationException::withMessages([
+                    'email' => "Invalid Email or Password"
                 ]);
             }
         }
