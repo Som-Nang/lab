@@ -38,24 +38,38 @@ class RoomController extends Controller
     public function store(Request $request, $id = null)
     {
         $request->validate([
-            'name' => 'required|unique:rooms,name',
+
             'description' => 'nullable',
             'capacity' => 'required|integer',
             'status' => 'required|in:active,maintenance',
         ]);
 
         $roomId = $request->input('name');
-        Room::create([
+        $data = [
             'room_id' => $roomId,
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'status' => $request->input('status'),
             'capacity' => $request->input('capacity'),
             'user_id' => auth()->user()->id,
-        ]);
+        ];
+        if ($id) {
+            $request->validate([
+                'name' => 'required|unique:rooms,name,' . $id . ',room_id',
+            ]);
+            $room = Room::findOrFail($id);
+
+            $room->update($data);
+        } else {
+            $request->validate([
+                'name' => 'required|unique:rooms,name',
+            ]);
+            Room::create($data);
+        }
     }
     public function edit(string $id)
     {
+        // abort(401, "Unauthorised");
         return Room::query()
             ->where('room_id', $id)
             ->firstOrFail();
@@ -65,23 +79,23 @@ class RoomController extends Controller
         // }
         // return $room;
     }
-    public function update(Request $request, string $id)
-    {
-        // dd($request->all());
+    // public function update(Request $request, string $id)
+    // {
+    //     // dd($request->all());
 
-        $room = Room::query()
-            ->where('room_id', $id)
-            ->firstOrFail();
-        // dd($room);
-        $roomId = $request->input('name');
-        $room->update([
-            'room_id' => $roomId,
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'capacity' => $request->input('capacity'),
-            'status' => $request->input('status')
-        ]);
-    }
+    //     $room = Room::query()
+    //         ->where('room_id', $id)
+    //         ->firstOrFail();
+    //     // dd($room);
+    //     $roomId = $request->input('name');
+    //     $room->update([
+    //         'room_id' => $roomId,
+    //         'name' => $request->input('name'),
+    //         'description' => $request->input('description'),
+    //         'capacity' => $request->input('capacity'),
+    //         'status' => $request->input('status')
+    //     ]);
+    // }
     public function destroy(string $id)
     {
         $room = Room::find($id);

@@ -5,6 +5,8 @@ use App\Http\Controllers\RoomController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StatusController;
 use App\Http\Middleware\CheckLogin;
 use App\Http\Middleware\RedirectToUserLogin;
 use App\Http\Middleware\IsAdmin;
@@ -30,6 +32,9 @@ use Inertia\Inertia;
 // Route::get('/user', [
 //    UserController::class, 'user'
 // ]);
+Route::get('/', function () {
+   return redirect()->route('dashboard');
+});
 Route::middleware(CheckLogin::class)->group(function () {
    Route::prefix('/room')->controller(RoomController::class)->name('room.')->group(function () {
       //Room
@@ -44,18 +49,29 @@ Route::middleware(CheckLogin::class)->group(function () {
       Route::get('/edit/{id}', 'edit')->name('edit');
 
       //Edit date
-      Route::put('/edit/{id}', 'update')->name('update');
+      // Route::put('/edit/{id}', 'update')->name('update');
 
       //Delete Room
       Route::delete('/delete/{id}', 'destroy')->name('destroy');
    });
+
+   Route::prefix('/status')->controller(StatusController::class)->name('status.')->group(function () {
+      Route::get('/', 'index')->name('index');
+
+      route::get('/edit/{id}', 'edit')->name('edit');
+
+      Route::post('/store/{id?}', 'store')->name('store');
+
+      Route::delete('/delete/{id}', 'destroy')->name('destroy');
+   });
    // Dashboard
-   Route::get('/dashboard', function () {
+   Route::get('/dashboard1', function () {
       return Inertia::render('Dashboard');
    });
-   Route::get('/', function () {
-      return Inertia::render('index');
-   });
+
+
+
+   Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 // login page
