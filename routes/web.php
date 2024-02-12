@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ComputerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Foundation\Application;
@@ -68,6 +69,10 @@ Route::middleware(CheckLogin::class)->group(function () {
    Route::get('/dashboard1', function () {
       return Inertia::render('Dashboard');
    });
+
+
+   // Computer
+   Route::resource('/computer', ComputerController::class);
 
 
 

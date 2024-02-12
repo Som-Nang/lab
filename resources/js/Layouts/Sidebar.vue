@@ -49,6 +49,12 @@ const sidebar = useToggleSidebar();
                     :link="route('status.index')"
                     :isActive="$page.component === 'Status'"
                 />
+
+                <TheSidebarItems
+                    title="Computer"
+                    :link="route('computer.index')"
+                    :isActive="$page.component.startsWith('Computer/')"
+                />
             </nav>
         </div>
     </div>

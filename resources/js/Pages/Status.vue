@@ -48,11 +48,14 @@ const onDelete = (id: number) => {
         confirmButtonText: "Yes, delete it!",
     }).then((result) => {
         if (result.isConfirmed) {
-            form.delete(route("status.destroy", id));
-            Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success",
+            form.delete(route("status.destroy", id), {
+                onSuccess: () => {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success",
+                    });
+                },
             });
         }
     });
@@ -104,19 +107,17 @@ const onDelete = (id: number) => {
             <div
                 class="p-4 text-blue-900 bg-gray-100 rounded-lg dark:bg-gray-700"
             >
-                <table
-                    class="table table-auto border border-blue-900 border-collapse"
-                >
+                <table class="myTable">
                     <!-- head -->
-                    <thead class="text-center bg-gray-500 dark:bg-gray-800">
-                        <tr class="text-gray-100">
-                            <th class="border border-gray-800">No</th>
-                            <th class="border border-gray-800">Status</th>
-                            <th class="border border-gray-800">Description</th>
-                            <th class="border border-gray-800">Action</th>
+                    <thead class="">
+                        <tr class="">
+                            <th class="">No</th>
+                            <th class="">Status</th>
+                            <th class="">Description</th>
+                            <th class="">Action</th>
                         </tr>
                     </thead>
-                    <tbody class="dark:text-green-500 font-bold">
+                    <tbody class="">
                         <tr
                             class="hover:text-gray-500 dark:hover:text-green-200 cursor-pointer"
                             v-for="(item, index) in status"

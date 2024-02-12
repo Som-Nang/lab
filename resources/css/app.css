@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .myTable {
+        @apply table table-auto border border-blue-900 border-collapse;
+    }
+    .myTable thead {
+        @apply text-center bg-gray-500 dark:bg-gray-800;
+    }
+    .myTable tr {
+        @apply text-gray-100;
+    }
+    .myTable thead th {
+        @apply border border-gray-800;
+    }
+    .myTable tbody {
+        @apply dark:text-green-500 font-bold;
+    }
+}
