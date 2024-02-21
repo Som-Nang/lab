@@ -55,8 +55,8 @@ class ComputerController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:computers,name',
-            'room_id' => 'required',
-            'status_id' => 'required',
+            'room_id' => 'required|exists:rooms,room_id',
+            'status_id' => 'required|exists:status,id',
             'description' => 'nullable',
         ]);
         $computerID = $request->input('name');
